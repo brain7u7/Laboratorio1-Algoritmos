@@ -8,7 +8,7 @@ int removeDuplicates(int* numero, int tamano) {
 
     for (int i = 1; i < tamano; i++) {
         if (numero[i] != numero[i - 1]) {
-            nums[posicion] = numero[i];
+            numero[posicion] = numero[i];
             posicion++;
         }
     }
@@ -17,7 +17,7 @@ int removeDuplicates(int* numero, int tamano) {
 
 int main() {
     int numero[] = {1, 1, 2};
-    int tamano = tamano(numero) / tamano(numero[0]);
+    int tamano = sizeof(numero) / sizeof(numero[0]);
     int k = removeDuplicates(numero, tamano);
 
 printf("k = %d\n", k);
