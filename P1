@@ -4,7 +4,6 @@ int removeDuplicates(int* numero, int tamano) {
     if (tamano == 0) {
         return 0;
     }
-
     int posicion = 1; // Índice donde escribiremos el siguiente elemento único
 
     for (int i = 1; i < tamano; i++) {
@@ -13,17 +12,15 @@ int removeDuplicates(int* numero, int tamano) {
             posicion++;
         }
     }
-
     return posicion;
 }
 
 int main() {
     int numero[] = {1, 1, 2};
     int tamano = tamano(numero) / tamano(numero[0]);
-
     int k = removeDuplicates(numero, tamano);
 
-    printf("k = %d\n", k);
+printf("k = %d\n", k);
     printf("numero = [");
     for (int i = 0; i < k; i++) {
         printf("%d", numero[i]);
