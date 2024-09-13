@@ -1,34 +1,48 @@
 #include <stdio.h>
 
 int removeDuplicates(int* numero, int tamano) {
+    // Verifica si el arreglo está vacío
     if (tamano == 0) {
-        return 0;
+        return 0; // Si está vacío, no hay elementos únicos, retorna 0
     }
-    int posicion = 1; // Índice donde escribiremos el siguiente elemento único
 
+    // 'posicion' indica dónde escribir el próximo elemento único. 
+    // Comienza en 1 porque el primer elemento siempre es único
+    int posicion = 1; 
+
+    // Itera sobre el arreglo desde el segundo elemento hasta el final
     for (int i = 1; i < tamano; i++) {
+        // Compara el elemento actual con el anterior
         if (numero[i] != numero[i - 1]) {
-            numero[posicion] = numero[i];
-            posicion++;
+            // Si son diferentes, es un nuevo elemento único
+            numero[posicion] = numero[i]; // Se copia a la posición 'posicion'
+            posicion++; // Se avanza 'posicion' para el siguiente único
         }
     }
-    return posicion;
+
+    // Retorna la nueva longitud del arreglo (cantidad de elementos únicos)
+    return posicion; 
 }
 
 int main() {
-    int numero[] = {1, 1, 2};
-    int tamano = sizeof(numero) / sizeof(numero[0]);
-    int k = removeDuplicates(numero, tamano);
+    int numero[] = {0,1,1,1,2,2,3,3,4}; // Arreglo de ejemplo con duplicados
+    int tamano = sizeof(numero) / sizeof(numero[0]); // Calcula el tamaño del arreglo
 
-printf("k = %d\n", k);
+    // Llama a la función para eliminar duplicados y obtener el nuevo tamaño
+    int k = removeDuplicates(numero, tamano); 
+
+    // Imprime el nuevo tamaño (cantidad de elementos únicos)
+    printf("k = %d\n", k); 
+
+    // Imprime el arreglo modificado (solo los primeros 'k' elementos)
     printf("numero = [");
     for (int i = 0; i < k; i++) {
         printf("%d", numero[i]);
         if (i < k - 1) {
-            printf(", ");
+            printf(", "); // Agrega coma y espacio si no es el último
         }
     }
     printf("]\n");
 
-    return 0;
+    return 0; // Indica que el programa terminó correctamente
 }
