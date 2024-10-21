@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int calcular_cambio_minimo(int V, int denominaciones[], int n) {
+    int contador_monedas = 0;
+
+    // Ordenar las denominaciones de mayor a menor
+
+    for (int i = 0; i < n; i++) {
+        while (V >= denominaciones[i]) {
+            V -= denominaciones[i];
+            contador_monedas++;
+        }
+    }
+
+    return contador_monedas;
+}
+
+int main() {
+    int V;
+    printf("Ingrese el total de dinero que desea verificar");
+    sacnf("%d",&V);
+
+    int denominaciones[] = {1000, 500, 100, 50, 20, 10, 5, 2, 1};
+    int n = sizeof(denominaciones) / sizeof(denominaciones[0]);
+
+    int resultado = calcular_cambio_minimo(V, denominaciones, n);
+    printf("El número mínimo de monedas es: %d\n", resultado);
+
+    return 0;
+}
