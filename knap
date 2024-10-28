@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Estructura para representar un artículo con sus ganancias (profit) y su peso (weight)
+
+struct Item {
+    int profit;
+    int weight;
+};
+
+// Función para comparar dos artículos según la relación profit/weight
+
+int cmp(const void *a, const void *b) {
+    struct Item *itemA = (struct Item *)a;
+    struct Item *itemB = (struct Item *)b;
+
+    // Cálculo de la razón profit/weight de cada artículo
+
+    double r1 = (double)itemA->profit / itemA->weight;
+    double r2 = (double)itemB->profit / itemB->weight;
+
+    // Devolver resultado según el orden descendente de la razón
+
+    if (r1 > r2) return -1;
+    else if (r1 < r2) return 1;
+    else return 0;
+}
+
+// Función principal del algoritmo greedy para resolver el problema de la mochila fraccionaria
+
+double fractionalKnapsack(int W, struct Item items[], int n) {
+
+    // Ordena los artículos según la relación profit/weight usando qsort y la función cmp
+
+    qsort(items, n, sizeof(struct Item), cmp);
+    double finalValue = 0.0;
+
+    // Itera sobre cada artículo
+
+    for (int i = 0; i < n; i++) {
+        // Si el artículo cabe completamente en la mochila, se agrega todo
+        if (items[i].weight <= W) {
+            W -= items[i].weight;
+            finalValue += items[i].profit;
+        }
+        // Si el artículo no cabe completamente, agrega una fracción de este
+        else {
+            finalValue += items[i].profit * ((double)W / items[i].weight);
+            break; // Termina el ciclo, ya que no se puede agregar más artículos
+        }
+    }
+    return finalValue; // Devuelve el valor total máximo alcanzado
+}
+// Función principal para probar el algoritmo
+int main() {
+    // Peso máximo de la mochila para los dos casos de prueba
+    int W1 = 50;
+    int W2 = 80;
+    // Definición de los artículos (20 en total con sus profits y pesos)
+    struct Item items[] = {
+        {70, 10}, {30, 5}, {50, 8}, {60, 12}, {120, 15},
+        {80, 10}, {90, 12}, {40, 6}, {30, 5}, {100, 20},
+        {110, 18}, {70, 14}, {60, 10}, {90, 17}, {130, 22},
+        {20, 4}, {50, 9}, {40, 7}, {100, 20}, {30, 6}
+    };
+    int n = sizeof(items) / sizeof(items[0]);
+
+    // Prueba con W = 50
+    clock_t start1 = clock();
+    double result_W1 = fractionalKnapsack(W1, items, n);
+    clock_t end1 = clock();
+    double execution_time1 = (double)(end1 - start1) / CLOCKS_PER_SEC;
+    printf("Valor máximo para W = 50: %.2f\n", result_W1);
+    printf("Tiempo de ejecución para W = 50: %.6f segundos\n", execution_time1);
+    // Prueba con W = 80
+    clock_t start2 = clock();
+    double result_W2 = fractionalKnapsack(W2, items, n);
+    clock_t end2 = clock();
+    double execution_time2 = (double)(end2 - start2) / CLOCKS_PER_SEC;
+    printf("Valor máximo para W = 80: %.2f\n", result_W2);
+    printf("Tiempo de ejecución para W = 80: %.6f segundos\n", execution_time2);
+    return 0;
+}
