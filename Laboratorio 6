@@ -1,0 +1,26 @@
+def max_area(height): 
+    n = len(height)   
+    # Verificar restricciones 
+    if not (2 <= n <= 10**5): 
+        raise ValueError("La longitud del arreglo height debe estar entre 2 y 10^5.") 
+    if not all(0 <= h <= 10**4 for h in height): 
+        raise ValueError("Cada elemento de height debe estar entre 0 y 10^4.")   
+    left, right = 0, n - 1 
+    max_area = 0 
+    while left < right: 
+        # Calcula el área actual 
+        area = (right - left) * min(height[left], height[right]) 
+        # Actualiza el máximo área si la actual es mayor 
+        max_area = max(max_area, area) 
+        # Mueve el puntero que apunta a la línea más baja 
+        if height[left] < height[right]: 
+            left += 1 
+        else: 
+            right -= 1 
+    return max_area 
+# Ejemplo de prueba 
+height = [1, 8, 6, 2, 5, 4, 8, 3, 7] 
+print("La máxima cantidad de agua que puede contener es:", max_area(height)) 
+# Ejemplo de prueba invalido  
+height = [1, 8, 6, 2, 5, 4, 8, 3, 7]  * 100001 
+print("La máxima cantidad de agua que puede contener es:", max_area(height)) 
