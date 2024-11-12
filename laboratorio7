@@ -1,0 +1,30 @@
+def compress_word(word: str) -> str:
+    comp = []
+    i = 0
+    n = len(word)
+    
+    while i < n:
+        current_char = word[i]
+        count = 1
+        # Contar hasta 9 repeticiones o hasta que el carácter cambie
+        while (i + count < n) and (word[i + count] == current_char) and (count < 9):
+            count += 1
+        comp.append(f"{count}{current_char}")
+        i += count
+    
+    return ''.join(comp)
+
+# Ejemplos de prueba
+if __name__ == "__main__":
+    # Ejemplo 1
+    word1 = "abcde"
+    print(f"Entrada: {word1}")
+    print(f"Salida: {compress_word(word1)}")  
+    # Ejemplo 2
+    word2 = "aaaaaaaaaaaaaabb"
+    print(f"\nEntrada: {word2}")
+    print(f"Salida: {compress_word(word2)}") 
+    # Ejemplo 3
+    word3 = "aabbaaabbbbcccccddddddddd"
+    print(f"\nEntrada: {word3}")
+    print(f"Salida: {compress_word(word3)}")
