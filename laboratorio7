@@ -28,3 +28,7 @@ if __name__ == "__main__":
     word3 = "aabbaaabbbbcccccddddddddd"
     print(f"\nEntrada: {word3}")
     print(f"Salida: {compress_word(word3)}")
+    # Ejemplo 4
+    word4 = "qwerty"
+    print(f"\nEntrada: {word4}")
+    print(f"Salida: {compress_word(word4)}")
