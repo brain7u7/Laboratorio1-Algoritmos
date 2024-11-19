@@ -1,0 +1,32 @@
+def numOfSubarrays(arr, k, threshold):
+    target_sum = k * threshold
+    current_sum = sum(arr[:k])  # Suma inicial de los primeros k elementos
+    count = 0
+    
+    # Comprobar si la primera ventana cumple la condición
+    if current_sum >= target_sum:
+        count += 1
+
+    # Deslizar la ventana a través del arreglo
+    for i in range(k, len(arr)):
+        current_sum += arr[i] - arr[i - k]  # Añadir el nuevo elemento y quitar el primero de la ventana
+        if current_sum >= target_sum:
+            count += 1
+
+    return count
+
+# Ejemplos de prueba
+if __name__ == "__main__":
+    # Ejemplo 1
+    arr1 = [2,2,2,2,5,5,5,8]
+    k1 = 3
+    threshold1 = 4
+    print(f"Entrada: {arr1}, k = {k1}, threshold = {threshold1}")
+    print(f"Salida: {numOfSubarrays(arr1, k1, threshold1)}")  
+
+    # Ejemplo 2
+    arr2 = [11,13,17,23,29,31,7,5,2,3]
+    k2 = 3
+    threshold2 = 5
+    print(f"\nEntrada: {arr2}, k = {k2}, threshold = {threshold2}")
+    print(f"Salida: {numOfSubarrays(arr2, k2, threshold2)}")  
